@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ModbusClientConsole")]
+[assembly: AssemblyTitle("ModbusClientConsoleFramework")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ModbusClientConsole")]
+[assembly: AssemblyProduct("ModbusClientConsoleFramework")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("864c71e4-48a7-41a4-9155-c9fa0e815cd7")]
+[assembly: Guid("b36a78c3-ffb1-4641-bf53-c1595350819c")]
 
 // Version information for an assembly consists of the following four values:
 //

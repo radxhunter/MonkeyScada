@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModbusClientConsole", "ModbusClientConsole\ModbusClientConsole.csproj", "{864C71E4-48A7-41A4-9155-C9FA0E815CD7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModbusServerConsole", "ModbusServerConsole\ModbusServerConsole.csproj", "{DEECF2A7-670D-47BA-9F19-86AD6DEF665B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModbusClientConsole", "ModbusClientConsole\ModbusClientConsole.csproj", "{B36A78C3-FFB1-4641-BF53-C1595350819C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{864C71E4-48A7-41A4-9155-C9FA0E815CD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{864C71E4-48A7-41A4-9155-C9FA0E815CD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{864C71E4-48A7-41A4-9155-C9FA0E815CD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{864C71E4-48A7-41A4-9155-C9FA0E815CD7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DEECF2A7-670D-47BA-9F19-86AD6DEF665B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DEECF2A7-670D-47BA-9F19-86AD6DEF665B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEECF2A7-670D-47BA-9F19-86AD6DEF665B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEECF2A7-670D-47BA-9F19-86AD6DEF665B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B36A78C3-FFB1-4641-BF53-C1595350819C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B36A78C3-FFB1-4641-BF53-C1595350819C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B36A78C3-FFB1-4641-BF53-C1595350819C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B36A78C3-FFB1-4641-BF53-C1595350819C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
