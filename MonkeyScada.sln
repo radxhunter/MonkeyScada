@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModbusServerConsole", "Modb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModbusClientConsole", "ModbusClientConsole\ModbusClientConsole.csproj", "{B36A78C3-FFB1-4641-BF53-C1595350819C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{79E54EE5-5DA9-47EC-86B5-04DF4BDE148F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{72D24936-D7AE-4D00-B827-BFAE9EA8A433}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +28,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DEECF2A7-670D-47BA-9F19-86AD6DEF665B} = {79E54EE5-5DA9-47EC-86B5-04DF4BDE148F}
+		{B36A78C3-FFB1-4641-BF53-C1595350819C} = {79E54EE5-5DA9-47EC-86B5-04DF4BDE148F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92069E08-EC56-4C69-B7F6-C97AD2D4A963}
