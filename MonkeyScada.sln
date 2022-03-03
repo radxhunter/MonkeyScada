@@ -13,11 +13,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModbusServerConsole", "src\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DeviceEnrollment", "DeviceEnrollment", "{727B2F54-CB5C-4A8F-87D2-72EDEB1047AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceEnrollment.Domain", "src\DeviceEnrollment\DeviceEnrollment.Domain\DeviceEnrollment.Domain.csproj", "{F8390BF3-325E-4859-AEF5-D97E5E44FA0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceEnrollment.Domain", "src\DeviceEnrollment\DeviceEnrollment.Domain\DeviceEnrollment.Domain.csproj", "{F8390BF3-325E-4859-AEF5-D97E5E44FA0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceEnrollment.Application", "src\DeviceEnrollment\DeviceEnrollment.Application\DeviceEnrollment.Application.csproj", "{2A978976-ED65-4777-99A6-B4529AC72FA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceEnrollment.Application", "src\DeviceEnrollment\DeviceEnrollment.Application\DeviceEnrollment.Application.csproj", "{2A978976-ED65-4777-99A6-B4529AC72FA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceEnrollment.Infrastructure", "src\DeviceEnrollment\DeviceEnrollment.Infrastructure\DeviceEnrollment.Infrastructure.csproj", "{CC7E083E-8990-4162-9F6F-08A3B96EC406}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceEnrollment.Infrastructure", "src\DeviceEnrollment\DeviceEnrollment.Infrastructure\DeviceEnrollment.Infrastructure.csproj", "{CC7E083E-8990-4162-9F6F-08A3B96EC406}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceEnrollment.Api", "src\DeviceEnrollment\DeviceEnrollment.Api\DeviceEnrollment.Api.csproj", "{16D4AE76-A77A-4CF4-8761-51AC745F3595}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataVisualization", "DataVisualization", "{ED9AF979-6A54-4C24-BFB9-6FE3466BC809}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataVisualization.Api", "src\DataVisualization\DataVisualization.Api\DataVisualization.Api.csproj", "{C147F6D5-167F-4BA8-B7F0-DEC6D4120B2D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommunicationManager", "CommunicationManager", "{8F2BF041-B917-4950-A5C9-489F38BEF3A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunicationManager.Api", "src\CommunicationManager\CommunicationManager.Api\CommunicationManager.Api.csproj", "{6DBB642C-681B-4BBB-A3DB-3D36A0309C82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +55,18 @@ Global
 		{CC7E083E-8990-4162-9F6F-08A3B96EC406}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC7E083E-8990-4162-9F6F-08A3B96EC406}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC7E083E-8990-4162-9F6F-08A3B96EC406}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16D4AE76-A77A-4CF4-8761-51AC745F3595}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16D4AE76-A77A-4CF4-8761-51AC745F3595}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16D4AE76-A77A-4CF4-8761-51AC745F3595}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16D4AE76-A77A-4CF4-8761-51AC745F3595}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C147F6D5-167F-4BA8-B7F0-DEC6D4120B2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C147F6D5-167F-4BA8-B7F0-DEC6D4120B2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C147F6D5-167F-4BA8-B7F0-DEC6D4120B2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C147F6D5-167F-4BA8-B7F0-DEC6D4120B2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DBB642C-681B-4BBB-A3DB-3D36A0309C82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DBB642C-681B-4BBB-A3DB-3D36A0309C82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DBB642C-681B-4BBB-A3DB-3D36A0309C82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DBB642C-681B-4BBB-A3DB-3D36A0309C82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +78,11 @@ Global
 		{F8390BF3-325E-4859-AEF5-D97E5E44FA0E} = {727B2F54-CB5C-4A8F-87D2-72EDEB1047AD}
 		{2A978976-ED65-4777-99A6-B4529AC72FA5} = {727B2F54-CB5C-4A8F-87D2-72EDEB1047AD}
 		{CC7E083E-8990-4162-9F6F-08A3B96EC406} = {727B2F54-CB5C-4A8F-87D2-72EDEB1047AD}
+		{16D4AE76-A77A-4CF4-8761-51AC745F3595} = {727B2F54-CB5C-4A8F-87D2-72EDEB1047AD}
+		{ED9AF979-6A54-4C24-BFB9-6FE3466BC809} = {79E54EE5-5DA9-47EC-86B5-04DF4BDE148F}
+		{C147F6D5-167F-4BA8-B7F0-DEC6D4120B2D} = {ED9AF979-6A54-4C24-BFB9-6FE3466BC809}
+		{8F2BF041-B917-4950-A5C9-489F38BEF3A0} = {79E54EE5-5DA9-47EC-86B5-04DF4BDE148F}
+		{6DBB642C-681B-4BBB-A3DB-3D36A0309C82} = {8F2BF041-B917-4950-A5C9-489F38BEF3A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92069E08-EC56-4C69-B7F6-C97AD2D4A963}
