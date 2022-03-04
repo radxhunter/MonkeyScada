@@ -19,15 +19,25 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceEnrollment.Applicatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceEnrollment.Infrastructure", "src\DeviceEnrollment\DeviceEnrollment.Infrastructure\DeviceEnrollment.Infrastructure.csproj", "{CC7E083E-8990-4162-9F6F-08A3B96EC406}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceEnrollment.Api", "src\DeviceEnrollment\DeviceEnrollment.Api\DeviceEnrollment.Api.csproj", "{16D4AE76-A77A-4CF4-8761-51AC745F3595}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceEnrollment.Api", "src\DeviceEnrollment\DeviceEnrollment.Api\DeviceEnrollment.Api.csproj", "{16D4AE76-A77A-4CF4-8761-51AC745F3595}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataVisualization", "DataVisualization", "{ED9AF979-6A54-4C24-BFB9-6FE3466BC809}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataVisualization.Api", "src\DataVisualization\DataVisualization.Api\DataVisualization.Api.csproj", "{C147F6D5-167F-4BA8-B7F0-DEC6D4120B2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataVisualization.Api", "src\DataVisualization\DataVisualization.Api\DataVisualization.Api.csproj", "{C147F6D5-167F-4BA8-B7F0-DEC6D4120B2D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommunicationManager", "CommunicationManager", "{8F2BF041-B917-4950-A5C9-489F38BEF3A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunicationManager.Api", "src\CommunicationManager\CommunicationManager.Api\CommunicationManager.Api.csproj", "{6DBB642C-681B-4BBB-A3DB-3D36A0309C82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommunicationManager.Api", "src\CommunicationManager\CommunicationManager.Api\CommunicationManager.Api.csproj", "{6DBB642C-681B-4BBB-A3DB-3D36A0309C82}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A590359B-B666-47B1-BBA5-262A21E5F338}"
+	ProjectSection(SolutionItems) = preProject
+		pm2.yml = pm2.yml
+		tye.yml = tye.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{726B234A-F5A3-4484-9C92-6AE1E910F9B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway.Api", "src\Gateway\Gateway.Api\Gateway.Api.csproj", "{97150397-FAFA-4902-BEEE-FF939D9A18F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +77,10 @@ Global
 		{6DBB642C-681B-4BBB-A3DB-3D36A0309C82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DBB642C-681B-4BBB-A3DB-3D36A0309C82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DBB642C-681B-4BBB-A3DB-3D36A0309C82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97150397-FAFA-4902-BEEE-FF939D9A18F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97150397-FAFA-4902-BEEE-FF939D9A18F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97150397-FAFA-4902-BEEE-FF939D9A18F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97150397-FAFA-4902-BEEE-FF939D9A18F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +97,8 @@ Global
 		{C147F6D5-167F-4BA8-B7F0-DEC6D4120B2D} = {ED9AF979-6A54-4C24-BFB9-6FE3466BC809}
 		{8F2BF041-B917-4950-A5C9-489F38BEF3A0} = {79E54EE5-5DA9-47EC-86B5-04DF4BDE148F}
 		{6DBB642C-681B-4BBB-A3DB-3D36A0309C82} = {8F2BF041-B917-4950-A5C9-489F38BEF3A0}
+		{726B234A-F5A3-4484-9C92-6AE1E910F9B3} = {79E54EE5-5DA9-47EC-86B5-04DF4BDE148F}
+		{97150397-FAFA-4902-BEEE-FF939D9A18F6} = {726B234A-F5A3-4484-9C92-6AE1E910F9B3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92069E08-EC56-4C69-B7F6-C97AD2D4A963}
