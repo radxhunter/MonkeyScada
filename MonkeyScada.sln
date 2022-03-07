@@ -30,6 +30,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommunicationManager.Api", "src\CommunicationManager\CommunicationManager.Api\CommunicationManager.Api.csproj", "{6DBB642C-681B-4BBB-A3DB-3D36A0309C82}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{981BBF86-7EDA-45A4-8252-326012D6E2FF}"
+	ProjectSection(SolutionItems) = preProject
+		src\Gateway\.dockerignore = src\Gateway\.dockerignore
+		src\Gateway\Dockerfile = src\Gateway\Dockerfile
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway.Api", "src\Gateway\Gateway.Api\Gateway.Api.csproj", "{A51D49CA-4D26-479F-B0EB-076123C811D8}"
 EndProject
