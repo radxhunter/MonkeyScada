@@ -9,6 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IMeasurementService, MeasurementService>();
+builder.Services.AddSingleton<IDeviceEnrollmentService, DeviceEnrollmentService>();
 
 var app = builder.Build();
 
