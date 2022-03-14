@@ -1,4 +1,4 @@
-﻿using FluentModbus;
+﻿using EasyModbus;
 using ModbusClientConsole.Helpers;
 using System;
 using System.Collections.Generic;
@@ -13,15 +13,14 @@ namespace ModbusClientConsole
     {
         static void Main(string[] args)
         {
-            ModbusTcpClient client = new ModbusTcpClient();
-            int unitIdentifier = 0x01;
+            ModbusClient client = new ModbusClient(IpLocalizer.GetLocalIpAddress(), 502);
+            client.Connect();
+            Console.WriteLine($"Connected to modbus server: {client.Connected}");
 
-            client.Connect(new IPEndPoint(IPAddress.Parse(IpLocalizer.GetLocalIpAddress()), 502), ModbusEndianness.BigEndian);
+            Console.ReadKey();
 
-            client.WriteSingleRegister(unitIdentifier, 2, 3);
-
-            // TODO: (5) Write Multiple Register https://apollo3zehn.github.io/FluentModbus/
-            // TODO: (5) Read Multiple Register https://apollo3zehn.github.io/FluentModbus/
+            // TODO: (5) Write Multiple Register 
+            // TODO: (5) Read Multiple Register 
         }
     }
 }
