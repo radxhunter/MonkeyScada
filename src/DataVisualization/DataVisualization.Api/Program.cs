@@ -9,6 +9,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.MapGet("/", () => "MonkeyScada DataVisualization");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
