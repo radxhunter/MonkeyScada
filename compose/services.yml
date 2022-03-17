@@ -1,0 +1,50 @@
+version: '3'
+services:
+  gateway:
+    build:
+      context: ../
+      dockerfile: src/Gateway/Dockerfile
+    container_name: scada-gateway
+    restart: unless-stopped
+    ports:
+      - 5000:80
+    networks:
+      - scada
+  
+  device-enrollment:
+    build:
+      context: ../
+      dockerfile: src/DeviceEnrollment/Dockerfile
+    container_name: scada-device-enrollment
+    restart: unless-stopped
+    ports:
+      - 5010:80
+    networks:
+      - scada
+    
+  data-visualization:
+    build:
+      context: ../
+      dockerfile: src/DataVisualization/Dockerfile
+    container_name: scada-data-visualization
+    restart: unless-stopped
+    ports:
+      - 5020:80
+    networks:
+      - scada
+    
+  communication-manager:
+    build:
+      context: ../
+      dockerfile: src/CommunicationManager/Dockerfile
+    container_name: scada-communication-manager
+    restart: unless-stopped
+    ports:
+      - 5030:80
+    networks:
+      - scada
+ 
+networks:
+  scada:
+    name: scada
+    #external: true
