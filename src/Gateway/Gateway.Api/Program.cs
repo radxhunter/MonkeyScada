@@ -9,6 +9,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+
 app.MapGet("/", () => "MonkeyScada Gateway");
 
 // Configure the HTTP request pipeline.
@@ -17,6 +18,7 @@ app.MapGet("/", () => "MonkeyScada Gateway");
     app.UseSwagger();
     app.UseSwaggerUI();
 //}
+
 
 app.UseHttpsRedirection();
 
