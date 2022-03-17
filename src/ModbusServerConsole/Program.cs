@@ -19,7 +19,7 @@ namespace ModbusServerConsole
             modbusServer.Listen();
             Console.WriteLine($"Modbus Server is running and has IP Address: { IpLocalizer.GetLocalIPAddress() }... UnitIdentifier is { modbusServer.UnitIdentifier } \r\n Type something to break");
             //TODO: (5) Create logging functionality: Add infinite loop that handle the event when someone connect to the server, read/write some data etc.; 
-            
+
             Console.ReadKey();
         }
     }
