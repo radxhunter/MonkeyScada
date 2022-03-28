@@ -1,22 +1,19 @@
 ﻿using EasyModbus;
-using ModbusClientConsole.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace ModbusClientConsole
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            ModbusClient client = new ModbusClient(IpLocalizer.GetLocalIpAddress(), 502);
+            ModbusClient client = new ModbusClient("192.168.100.2", 502);
+            client.ConnectionTimeout = 3000;
             client.Connect();
             Console.WriteLine($"Connected to modbus server: {client.Connected}");
 
+
+            client.WriteMultipleRegisters(0, new int[] { 1, 2, 3 });
+            client.ReadHoldingRegisters(0, 4);
             Console.ReadKey();
 
             // TODO: (5) Write Multiple Register 
