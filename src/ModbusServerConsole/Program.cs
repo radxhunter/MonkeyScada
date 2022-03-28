@@ -14,6 +14,7 @@ namespace ModbusServerConsole
             ModbusClient client = new ModbusClient();
             ModbusServer modbusServer = new ModbusServer();
             modbusServer.Listen();
+          
             Console.WriteLine($"Modbus Server is running and has IP Address: " +
                 $"{ IpLocalizer.GetLocalIPAddress() }... UnitIdentifier is " +
                 $"{ modbusServer.UnitIdentifier } ");
