@@ -10,26 +10,26 @@ namespace CommunicationManager.Api.Services
     internal class ModbusBackgroundService : BackgroundService
     {
         private int _runningStatus;
-        private readonly IModbusGenerator _modbusGenerator;
+        private readonly IModbusCommunicator _modbusCommunicator;
         private readonly ModbusRequestChannel _requestChannel;
         private readonly ILogger<ModbusBackgroundService> _logger;
 
-        public ModbusBackgroundService(IModbusGenerator modbusGenerator, ModbusRequestChannel channel,
+        public ModbusBackgroundService(IModbusCommunicator modbusCommunicator, ModbusRequestChannel channel,
             ILogger<ModbusBackgroundService> logger)
         {
-            _modbusGenerator = modbusGenerator;
+            _modbusCommunicator = modbusCommunicator;
             _requestChannel = channel;
             _logger = logger;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            _ = _modbusGenerator.StartAsync();
+            _ = _modbusCommunicator.StartAsync(cancellationToken);
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-            await _modbusGenerator.StopAsync();
+            await _modbusCommunicator.StopAsync(cancellationToken);
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -40,25 +40,25 @@ namespace CommunicationManager.Api.Services
                 _logger.LogInformation($"Modbus background service has received the request: '{ request.GetType().Name}'");
                 var _ = request switch
                 {
-                    StartModbus => StartGeneratorAsync(),
-                    StopModbus => StopGeneratorAsync(),
+                    StartModbus => StartGeneratorAsync(stoppingToken),
+                    StopModbus => StopGeneratorAsync(stoppingToken),
                     _ => Task.CompletedTask
                 };
             }
             _logger.LogInformation("Modbus background service has stopped");
         }
 
-        private async Task StartGeneratorAsync()
+        private async Task StartGeneratorAsync(CancellationToken cancellationToken)
         {
             if (Interlocked.Exchange(ref _runningStatus, 1) == 1)
             {
                 _logger.LogInformation("Modbus generator is already running");
                 return;
             }
-            await _modbusGenerator.StartAsync();
+            await _modbusCommunicator.StartAsync(cancellationToken);
         }
 
-        private async Task StopGeneratorAsync()
+        private async Task StopGeneratorAsync(CancellationToken cancellationToken)
         {
             if (Interlocked.Exchange(ref _runningStatus, 0) == 0)
             {
@@ -66,7 +66,7 @@ namespace CommunicationManager.Api.Services
                 return;
             }
 
-            await _modbusGenerator.StopAsync();
+            await _modbusCommunicator.StopAsync(cancellationToken);
         }
     }
 }

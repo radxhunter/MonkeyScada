@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CommunicationManager.Api.Services
 {
-    internal sealed class ModbusGenerator : IModbusGenerator
+    internal sealed class ModbusGenerator : IModbusCommunicator
     {
         private readonly ILogger<ModbusGenerator> _logger;
         private readonly Random _random = new Random();
@@ -25,7 +25,7 @@ namespace CommunicationManager.Api.Services
             _logger = logger;
         }
 
-        public async Task StartAsync()
+        public async Task StartAsync(CancellationToken cancellationToken)
         {
             _isRunning = true;
             while (_isRunning)
@@ -42,7 +42,7 @@ namespace CommunicationManager.Api.Services
                     _measurementPairs[room] = newMeasurement;
 
                     var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-                    _logger.LogInformation($"Updated pricing for: {room}, {temperature:F} -> {newMeasurement:F} [{tick:F}]");
+                    _logger.LogInformation($"Updated modbus for: {room}, {temperature:F} -> {newMeasurement:F} [{tick:F}]");
                     var measurementPair = new MeasurementPair(room, newMeasurement, timestamp);
 
                     await Task.Delay(TimeSpan.FromSeconds(1));
@@ -50,7 +50,7 @@ namespace CommunicationManager.Api.Services
             }
         }
 
-        public Task StopAsync()
+        public Task StopAsync(CancellationToken cancellationToken)
         {
             _isRunning = false;
             return Task.CompletedTask;
