@@ -3,7 +3,9 @@ using CommunicationManager.Api.Requests;
 using CommunicationManager.Api.Services;
 using FluentModbus;
 using MonkeyScada.Shared.Redis;
+using MonkeyScada.Shared.Serialization;
 using MonkeyScada.Shared.Streaming;
+using MonkeyScada.Shared.Redis.Streaming;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +22,9 @@ builder.Services.AddSingleton<IDeviceEnrollmentService, DeviceEnrollmentService>
 
 builder.Services
     .AddStreaming()
+    .AddSerialization()
     .AddRedis(builder.Configuration)
+    .AddRedisStreaming()
     .AddSingleton<ModbusRequestChannel>()
     .AddSingleton<IModbusCommunicator, ModbusReader>()
     .AddHostedService<ModbusBackgroundService>();

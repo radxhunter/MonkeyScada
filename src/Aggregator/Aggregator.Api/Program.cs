@@ -1,5 +1,7 @@
 using Aggregator.Api.Services;
 using MonkeyScada.Shared.Redis;
+using MonkeyScada.Shared.Redis.Streaming;
+using MonkeyScada.Shared.Serialization;
 using MonkeyScada.Shared.Streaming;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,8 +14,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services
-    .AddSingleton<ModbusStreamBackgroundService>()
+    .AddHostedService<ModbusStreamBackgroundService>()
+    .AddSerialization()
+    .AddRedis(builder.Configuration)
     .AddStreaming()
+    .AddRedisStreaming()
     .AddRedis(builder.Configuration);
 
 var app = builder.Build();
