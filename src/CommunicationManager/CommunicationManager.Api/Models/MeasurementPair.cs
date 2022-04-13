@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace CommunicationManager.Api.Models
 {
-    internal sealed record MeasurementPair(string SensorName, double Value, long Timestamp);
+    public sealed record MeasurementPair(string SensorName, double Value, long Timestamp);
 }

@@ -47,4 +47,4 @@ services:
 networks:
   scada:
     name: scada
-    #external: true
+    external: true

@@ -20,26 +20,41 @@ namespace CommunicationManager.Api.Services
             _logger = logger;
         }
 
-        public async Task StartAsync(CancellationToken cancellationToken)
+        public async IAsyncEnumerable<MeasurementPair> StartAsync(CancellationToken cancellationToken)
         {
             _isRunning = true;
             while (_isRunning)
             {
-                var client = new ModbusTcpClient();
-                client.Connect(new IPEndPoint(IPAddress.Parse(IpLocalizer.GetLocalIpAddress()), 502), ModbusEndianness.BigEndian);
-
-                var results = (await client.ReadHoldingRegistersAsync<short>(0, 0, 10, cancellationToken)).Span.Slice(0,4).ToArray();
-                var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-                _logger.LogInformation($"Updated modbus: {results[0]}, {results[1]}, {results[2]}, {results[3]}");
-                List<MeasurementPair> measurementPairs = new List<MeasurementPair>();
-                int i = 0;
-                foreach (var measurement in results)
+                short[] modbusData = new short[] { };
+                long timestamp = 0;
+                try
                 {
-                    measurementPairs.Add(new MeasurementPair($"Register{i}", measurement, timestamp));
-                    i++;
+                    ModbusTcpClient client = ConnectToLocalModbusServer();
+
+                    modbusData = (await client.ReadHoldingRegistersAsync<short>(0, 0, 10, cancellationToken)).Span.Slice(0, 4).ToArray();
+                    timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                    _logger.LogInformation($"Updated modbus: {modbusData[0]}, {modbusData[1]}, {modbusData[2]}, {modbusData[3]}");
+
                 }
+                catch (Exception ex)
+                {
+                    _logger.LogError("An error occured: " + ex.Message, ex);
+                }
+                
+                for (int i = 0; i < modbusData.Length; i++)
+                {
+                    //measurementPairs.Add(new MeasurementPair($"Register{i}", modbusData[i], timestamp));
+                    yield return new MeasurementPair($"Register{i}", modbusData[i], timestamp);
+                }
+
                 await Task.Delay(TimeSpan.FromSeconds(1));
             }
+        }
+        private static ModbusTcpClient ConnectToLocalModbusServer()
+        {
+            var client = new ModbusTcpClient();
+            client.Connect(new IPEndPoint(IPAddress.Parse(IpLocalizer.GetLocalIpAddress()), 502), ModbusEndianness.BigEndian);
+            return client;
         }
 
         public Task StopAsync(CancellationToken cancellationToken)

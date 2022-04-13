@@ -39,11 +39,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway.Api", "src\Gateway\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A590359B-B666-47B1-BBA5-262A21E5F338}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		pm2.yml = pm2.yml
 		tye.yml = tye.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "compose", "compose", "{3FC6730D-13D2-44AE-B707-7AFDD27F777B}"
+	ProjectSection(SolutionItems) = preProject
+		compose\infrastructure.yml = compose\infrastructure.yml
+		compose\services.yml = compose\services.yml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aggregator", "Aggregator", "{7B11189C-1E2B-4D74-8504-25F60D591A13}"
 EndProject
@@ -62,6 +67,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lineman.Http.Api", "src\Lineman\Http\Lineman.Http.Api\Lineman.Http.Api.csproj", "{E815882C-D73B-47BA-969C-9C6A3F6BB0B9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lineman.Modbus.Api", "src\Lineman\Modbus\Lineman.Modbus.Api\Lineman.Modbus.Api.csproj", "{34F90126-D1A3-4C0C-89A3-4CF2A6967326}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{2495EB68-49DE-449F-8FD5-F8DABC75E171}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyScada.Shared", "MonkeyScada.Shared\MonkeyScada.Shared.csproj", "{FCE519C8-DF13-4802-9D2F-81868A7A3813}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,6 +130,10 @@ Global
 		{34F90126-D1A3-4C0C-89A3-4CF2A6967326}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34F90126-D1A3-4C0C-89A3-4CF2A6967326}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34F90126-D1A3-4C0C-89A3-4CF2A6967326}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCE519C8-DF13-4802-9D2F-81868A7A3813}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCE519C8-DF13-4802-9D2F-81868A7A3813}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCE519C8-DF13-4802-9D2F-81868A7A3813}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCE519C8-DF13-4802-9D2F-81868A7A3813}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,6 +162,8 @@ Global
 		{730F7C6C-F4B5-4205-8AB1-287000BDA747} = {6AFBA925-8211-4771-AF89-BB9550B2878B}
 		{E815882C-D73B-47BA-969C-9C6A3F6BB0B9} = {2E8D01A0-E3CC-4288-AB24-93F75DEFBAF4}
 		{34F90126-D1A3-4C0C-89A3-4CF2A6967326} = {730F7C6C-F4B5-4205-8AB1-287000BDA747}
+		{2495EB68-49DE-449F-8FD5-F8DABC75E171} = {79E54EE5-5DA9-47EC-86B5-04DF4BDE148F}
+		{FCE519C8-DF13-4802-9D2F-81868A7A3813} = {2495EB68-49DE-449F-8FD5-F8DABC75E171}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92069E08-EC56-4C69-B7F6-C97AD2D4A963}

@@ -2,6 +2,8 @@ using CommunicationManager.Api.Helpers;
 using CommunicationManager.Api.Requests;
 using CommunicationManager.Api.Services;
 using FluentModbus;
+using MonkeyScada.Shared.Redis;
+using MonkeyScada.Shared.Streaming;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,9 +14,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddSingleton<IMeasurementService, MeasurementService>();
 builder.Services.AddSingleton<IDeviceEnrollmentService, DeviceEnrollmentService>();
-builder.Services.AddSingleton<ModbusRequestChannel>()
+
+builder.Services
+    .AddStreaming()
+    .AddRedis(builder.Configuration)
+    .AddSingleton<ModbusRequestChannel>()
     .AddSingleton<IModbusCommunicator, ModbusReader>()
     .AddHostedService<ModbusBackgroundService>();
 

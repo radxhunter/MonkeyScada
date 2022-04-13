@@ -1,9 +1,11 @@
 ﻿
+using CommunicationManager.Api.Models;
+
 namespace CommunicationManager.Api.Services
 {
     internal interface IModbusCommunicator
     {
-        Task StartAsync(CancellationToken cancellationToken);
+        IAsyncEnumerable<MeasurementPair> StartAsync(CancellationToken cancellationToken);
         Task StopAsync(CancellationToken cancellationToken);
     }
 }

@@ -25,7 +25,7 @@ namespace CommunicationManager.Api.Services
             _logger = logger;
         }
 
-        public async Task StartAsync(CancellationToken cancellationToken)
+        public async IAsyncEnumerable<MeasurementPair> StartAsync(CancellationToken cancellationToken)
         {
             _isRunning = true;
             while (_isRunning)
@@ -34,7 +34,7 @@ namespace CommunicationManager.Api.Services
                 {
                     if (!_isRunning)
                     {
-                        return;
+                        yield break;
                     }
 
                     var tick = NextTick();
@@ -44,7 +44,7 @@ namespace CommunicationManager.Api.Services
                     var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                     _logger.LogInformation($"Updated modbus for: {room}, {temperature:F} -> {newMeasurement:F} [{tick:F}]");
                     var measurementPair = new MeasurementPair(room, newMeasurement, timestamp);
-
+                    yield return measurementPair;
                     await Task.Delay(TimeSpan.FromSeconds(1));
                 }
             }

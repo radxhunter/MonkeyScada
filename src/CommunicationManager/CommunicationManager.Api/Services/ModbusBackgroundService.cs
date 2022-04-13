@@ -1,4 +1,5 @@
 ﻿using CommunicationManager.Api.Requests;
+using MonkeyScada.Shared.Streaming;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,15 @@ namespace CommunicationManager.Api.Services
         private int _runningStatus;
         private readonly IModbusCommunicator _modbusCommunicator;
         private readonly ModbusRequestChannel _requestChannel;
+        private readonly IStreamPublisher _streamPublisher;
         private readonly ILogger<ModbusBackgroundService> _logger;
 
         public ModbusBackgroundService(IModbusCommunicator modbusCommunicator, ModbusRequestChannel channel,
-            ILogger<ModbusBackgroundService> logger)
+            IStreamPublisher streamPublisher, ILogger<ModbusBackgroundService> logger)
         {
             _modbusCommunicator = modbusCommunicator;
             _requestChannel = channel;
+            _streamPublisher = streamPublisher;
             _logger = logger;
         }
 
@@ -55,7 +58,12 @@ namespace CommunicationManager.Api.Services
                 _logger.LogInformation("Modbus generator is already running");
                 return;
             }
-            await _modbusCommunicator.StartAsync(cancellationToken);
+
+            await foreach (var measurementPair in _modbusCommunicator.StartAsync(cancellationToken))
+            {
+                _logger.LogInformation("Publishing the measurement pair...");
+                await _streamPublisher.PublishAsync("modbus", measurementPair);
+            }
         }
 
         private async Task StopGeneratorAsync(CancellationToken cancellationToken)
