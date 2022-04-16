@@ -1,5 +1,4 @@
 using CommunicationManager.Api.Helpers;
-using CommunicationManager.Api.Requests;
 using CommunicationManager.Api.Services;
 using FluentModbus;
 using MonkeyScada.Shared.Redis;
@@ -7,6 +6,8 @@ using MonkeyScada.Shared.Serialization;
 using MonkeyScada.Shared.Streaming;
 using MonkeyScada.Shared.Redis.Streaming;
 using System.Net;
+using CommunicationManager.Api.Modbus.Services;
+using CommunicationManager.Api.Modbus.Requests;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,19 +28,11 @@ builder.Services
     .AddRedisStreaming()
     .AddSingleton<ModbusRequestChannel>()
     .AddSingleton<IModbusCommunicator, ModbusReader>()
-    .AddHostedService<ModbusBackgroundService>();
+    .AddHostedService<ModbusBackgroundService>()
+    .AddGrpc();
 
 var app = builder.Build();
-
-//var client = new ModbusTcpClient();
-//client.Connect(new IPEndPoint(IPAddress.Parse(IpLocalizer.GetLocalIpAddress()), 502), ModbusEndianness.BigEndian);
-
-//await client.WriteMultipleRegistersAsync(0, 0, new short[] { 11, 201, 3001, 41 }, CancellationToken.None);
-//var data = (await client.ReadHoldingRegistersAsync<short>(0,0,10, CancellationToken.None)).ToArray();
-////client.WriteMultipleRegisters(0, 0, new short[] { 1, 20, 300, 4000 });
-////var data = client.ReadHoldingRegisters<short>(0, 0, 10);
-//Console.WriteLine($"{data[0]}, {data[1]}, {data[2]}");
-
+app.MapGrpcService<ModbusGrpcService>();
 
 app.MapGet("/", () => "MonkeyScada CommunicationManager");
 

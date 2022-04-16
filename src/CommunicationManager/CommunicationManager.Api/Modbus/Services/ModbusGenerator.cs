@@ -1,11 +1,11 @@
-﻿using CommunicationManager.Api.Models;
+﻿using CommunicationManager.Api.Modbus.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommunicationManager.Api.Services
+namespace CommunicationManager.Api.Modbus.Services
 {
     internal sealed class ModbusGenerator : IModbusCommunicator
     {
@@ -24,6 +24,11 @@ namespace CommunicationManager.Api.Services
         {
             _logger = logger;
         }
+
+        public event EventHandler<MeasurementPair>? MeasurementUpdated;
+
+        public IEnumerable<string> GetSensorNames() => _measurementPairs.Keys;
+
 
         public async IAsyncEnumerable<MeasurementPair> StartAsync(CancellationToken cancellationToken)
         {
@@ -44,6 +49,7 @@ namespace CommunicationManager.Api.Services
                     var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                     _logger.LogInformation($"Updated modbus for: {room}, {temperature:F} -> {newMeasurement:F} [{tick:F}]");
                     var measurementPair = new MeasurementPair(room, newMeasurement, timestamp);
+                    MeasurementUpdated?.Invoke(this, measurementPair);
                     yield return measurementPair;
                     await Task.Delay(TimeSpan.FromSeconds(1));
                 }

@@ -1,5 +1,5 @@
 ﻿using CommunicationManager.Api.Helpers;
-using CommunicationManager.Api.Models;
+using CommunicationManager.Api.Modbus.Models;
 using FluentModbus;
 using System;
 using System.Collections.Generic;
@@ -8,17 +8,26 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommunicationManager.Api.Services
+namespace CommunicationManager.Api.Modbus.Services
 {
     public class ModbusReader : IModbusCommunicator
     {
         private readonly ILogger<ModbusReader> _logger;
         private bool _isRunning;
+        private Dictionary<string,short?> _modbusRegisters = new();
+
+        public event EventHandler<MeasurementPair>? MeasurementUpdated;
 
         public ModbusReader(ILogger<ModbusReader> logger)
         {
             _logger = logger;
+            for (int i = 1; i < 5; i++)
+            {
+                _modbusRegisters.Add($"Register{i}", null);
+            }
         }
+
+        public IEnumerable<string> GetSensorNames() => _modbusRegisters.Keys;
 
         public async IAsyncEnumerable<MeasurementPair> StartAsync(CancellationToken cancellationToken)
         {
@@ -31,25 +40,37 @@ namespace CommunicationManager.Api.Services
                 {
                     ModbusTcpClient client = ConnectToLocalModbusServer();
 
-                    modbusData = (await client.ReadHoldingRegistersAsync<short>(0, 0, 10, cancellationToken)).Span.Slice(0, 4).ToArray();
+                    modbusData = (await client.ReadHoldingRegistersAsync<short>(0, 0, _modbusRegisters.Count, cancellationToken)).ToArray();
                     timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-                    _logger.LogInformation($"Updated modbus: {modbusData[0]}, {modbusData[1]}, {modbusData[2]}, {modbusData[3]}");
+
+                    LogMessage("Modbus values: ", modbusData);
 
                 }
                 catch (Exception ex)
                 {
                     _logger.LogError("An error occured: " + ex.Message, ex);
                 }
-                
-                for (int i = 0; i < modbusData.Length; i++)
+
+                for (int i = 0; i < _modbusRegisters.Count; i++)
                 {
-                    //measurementPairs.Add(new MeasurementPair($"Register{i}", modbusData[i], timestamp));
-                    yield return new MeasurementPair($"Register{i}", modbusData[i], timestamp);
+                    var measurement = new MeasurementPair(_modbusRegisters.Keys.ElementAt(i), modbusData[i], timestamp);
+                    MeasurementUpdated?.Invoke(this, measurement);
+                    yield return measurement;
                 }
 
                 await Task.Delay(TimeSpan.FromSeconds(1));
             }
         }
+
+        private void LogMessage(string logMessage, short[] modbusData)
+        {
+            foreach (short data in modbusData)
+            {
+                logMessage += $"{data}, ";
+            }
+            _logger.LogInformation(logMessage.Remove(logMessage.Length - 1));
+        }
+
         private static ModbusTcpClient ConnectToLocalModbusServer()
         {
             var client = new ModbusTcpClient();
