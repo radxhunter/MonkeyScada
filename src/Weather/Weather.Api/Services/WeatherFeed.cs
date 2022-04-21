@@ -7,19 +7,23 @@ namespace Weather.Api.Services;
 internal sealed class WeatherFeed : IWeatherFeed
 {
     private readonly HttpClient _client;
+    private readonly IConfiguration _configuration;
     private readonly ILogger<WeatherFeed> _logger;
 
-    public WeatherFeed(HttpClient client, ILogger<WeatherFeed> logger)
+    public WeatherFeed(HttpClient client,
+        IConfiguration configuration,
+        ILogger<WeatherFeed> logger)
     {
         _client = client;
+        _configuration = configuration;
         _logger = logger;
     }
 
     public async IAsyncEnumerable<WeatherData> SubscribeAsync(string location, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
-        string apiKey = "e1c075f6ecc642b38e841406222004";//_configuration.GetSection("WeatherApi").GetSection("ApiKey").Value;
-        string apiUrl = "http://api.weatherapi.com/v1/current.json";//_configuration.GetSection("WeatherApi").GetSection("ApiUrl").Value;
-        int intervalOfPollingInSeconds = 5;//_configuration.GetSection("WeatherApi").GetValue<int>("IntervalOfPollingInSeconds");
+        string apiKey = _configuration.GetSection("WeatherApi").GetSection("ApiKey").Value;
+        string apiUrl = _configuration.GetSection("WeatherApi").GetSection("ApiUrl").Value;
+        int intervalOfPollingInSeconds = _configuration.GetSection("WeatherApi").GetValue<int>("IntervalOfPollingInSeconds");
 
         var url = $"{apiUrl}?key={apiKey}&q={location}&aqi=no";
         while (!cancellationToken.IsCancellationRequested)
