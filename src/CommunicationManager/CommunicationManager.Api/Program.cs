@@ -1,13 +1,11 @@
-using CommunicationManager.Api.Helpers;
 using CommunicationManager.Api.Services;
-using FluentModbus;
 using MonkeyScada.Shared.Redis;
 using MonkeyScada.Shared.Serialization;
 using MonkeyScada.Shared.Streaming;
 using MonkeyScada.Shared.Redis.Streaming;
-using System.Net;
 using CommunicationManager.Api.Modbus.Services;
 using CommunicationManager.Api.Modbus.Requests;
+using CommunicationManager.Api.SerialPortConnector.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +26,7 @@ builder.Services
     .AddRedisStreaming()
     .AddSingleton<ModbusRequestChannel>()
     .AddSingleton<IModbusCommunicator, ModbusReader>()
+    .AddScoped<ISerialPortConnectorService, SerialPortConnectorService>()
     .AddHostedService<ModbusBackgroundService>()
     .AddGrpc();
 
@@ -47,6 +46,9 @@ app.MapPost("/modbus/stop", async (ModbusRequestChannel channel) =>
     await channel.Requests.Writer.WriteAsync(new StopModbus());
     return Results.Ok();
 });
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.MapControllers();
 
