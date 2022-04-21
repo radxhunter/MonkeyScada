@@ -31,3 +31,11 @@ services:
   env:
     - name: ASPNETCORE_ENVIRONMENT
       value: development
+
+- name: monkey-scada-weather
+  project: src/Weather/Weather.Api/Weather.Api.csproj
+  bindings:
+  - port: 5040
+  env:
+    - name: ASPNETCORE_ENVIRONMENT
+      value: development

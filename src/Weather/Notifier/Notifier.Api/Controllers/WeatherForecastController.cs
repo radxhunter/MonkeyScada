@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Aggregator.Api.Controllers
+namespace Notifier.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]

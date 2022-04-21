@@ -1,4 +1,4 @@
-namespace Aggregator.Api
+namespace Notifier.Api
 {
     public class WeatherForecast
     {
