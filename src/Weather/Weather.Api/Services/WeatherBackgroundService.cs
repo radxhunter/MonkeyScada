@@ -10,15 +10,14 @@ namespace Weather.Api.Services
     internal sealed class WeatherBackgroundService : BackgroundService
     {
         private readonly IServiceProvider _serviceProvider;
-        //private readonly IStreamPublisher _streamPublisher;
+        private readonly IStreamPublisher _streamPublisher;
         private readonly ILogger<WeatherBackgroundService> _logger;
 
-        public WeatherBackgroundService(IServiceProvider serviceProvider, 
-            //IStreamPublisher streamPublisher,
+        public WeatherBackgroundService(IServiceProvider serviceProvider, IStreamPublisher streamPublisher,
             ILogger<WeatherBackgroundService> logger)
         {
             _serviceProvider = serviceProvider;
-            //_streamPublisher = streamPublisher;
+            _streamPublisher = streamPublisher;
             _logger = logger;
         }
 
@@ -26,11 +25,11 @@ namespace Weather.Api.Services
         {
             using var scope = _serviceProvider.CreateScope();
             var weatherFeed = scope.ServiceProvider.GetRequiredService<IWeatherFeed>();
-            await foreach (var weather in weatherFeed.SubscribeAsync("Cracow", stoppingToken))
+            await foreach (var weather in weatherFeed.SubscribeAsync("Rybnik", stoppingToken))
             {
                 _logger.LogInformation($"{weather.Location}: {weather.Temperature} C, {weather.Humidity} %," +
                                        $"{weather.Wind} km/h [{weather.Condition}]");
-                //await _streamPublisher.PublishAsync("weather", weather);
+                await _streamPublisher.PublishAsync("weather", weather);
 
             }
         }
