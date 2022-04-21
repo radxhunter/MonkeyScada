@@ -1,4 +1,5 @@
 using Aggregator.Api.Services;
+using MonkeyScada.Shared.Messaging;
 using MonkeyScada.Shared.Redis;
 using MonkeyScada.Shared.Redis.Streaming;
 using MonkeyScada.Shared.Serialization;
@@ -16,7 +17,10 @@ builder.Services
     .AddSerialization()
     .AddStreaming()
     .AddRedis(builder.Configuration)
-    .AddRedisStreaming();
+    .AddRedisStreaming()
+    .AddMessaging()
+    .AddSingleton<IModbusHandler, ModbusHandler>()
+    ;
 
 var app = builder.Build();
 
