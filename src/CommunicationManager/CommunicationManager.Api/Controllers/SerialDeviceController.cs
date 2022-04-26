@@ -20,9 +20,10 @@ namespace CommunicationManager.Api.Controllers
 
         // GET: api/<SerialDeviceController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            _connector.Read();
+            return Ok();
         }
 
         // GET api/<SerialDeviceController>/5

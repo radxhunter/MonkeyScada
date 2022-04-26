@@ -3,5 +3,6 @@
     public interface ISerialPortConnectorService
     {
         void Send(string command);
+        void Read();
     }
 }
