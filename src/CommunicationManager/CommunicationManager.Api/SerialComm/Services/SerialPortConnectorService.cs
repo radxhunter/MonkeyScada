@@ -18,7 +18,7 @@ namespace CommunicationManager.Api.SerialComm.Services
         private bool _isRunning;
         private readonly ILogger<SerialPortConnectorService> _logger;
 
-        public event EventHandler<MeasurementPair<string>>? MeasurementUpdated;
+        public event EventHandler<MeasurementPair<string, DateTime>>? MeasurementUpdated;
 
         public SerialPortConnectorService(IConfiguration configuration, ILogger<SerialPortConnectorService> logger)
         {
@@ -27,7 +27,7 @@ namespace CommunicationManager.Api.SerialComm.Services
             _logger = logger;
         }
 
-        private Queue<MeasurementPair<string>> measurements = new();
+        private Queue<MeasurementPair<string, DateTime>> measurements = new();
 
         public void Send(string command)
         {
@@ -36,8 +36,7 @@ namespace CommunicationManager.Api.SerialComm.Services
             serialPort.Write(command);
         }
 
-        //TODO: Aggregator can read the persisted serial port data 
-        public async IAsyncEnumerable<MeasurementPair<string>> StartAsync(CancellationToken cancellationToken)
+        public async IAsyncEnumerable<MeasurementPair<string, DateTime>> StartAsync(CancellationToken cancellationToken)
         {
             _isRunning = true;
             using var serialPort = new SerialPortStream(_portName, _baudRate);
@@ -69,11 +68,16 @@ namespace CommunicationManager.Api.SerialComm.Services
                 {
                     serialPort.Open();
                 }
-                string serialData = serialPort.ReadLine();
-                long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-                _logger.LogInformation("Data Received:------->" + serialData + ", time:" + timestamp.ToString());
 
-                measurements.Enqueue(new MeasurementPair<string>(_portName, serialData, timestamp));
+                if (serialPort.BytesToRead > 0)
+                {
+                    string serialData = serialPort.ReadLine();
+                    var time = DateTime.Now;
+                    _logger.LogInformation("Data Received:------->" + serialData + ", time:" + time);
+
+                    measurements.Enqueue(new MeasurementPair<string, DateTime>(_portName, serialData, time));
+                }
+               
             }
             catch (Exception ex)
             {

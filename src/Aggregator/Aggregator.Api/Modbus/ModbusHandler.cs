@@ -2,7 +2,7 @@
 using Aggregator.Api.Models;
 using MonkeyScada.Shared.Messaging;
 
-namespace Aggregator.Api.Services
+namespace Aggregator.Api.Modbus
 {
     internal sealed class ModbusHandler : IModbusHandler
     {
@@ -16,13 +16,13 @@ namespace Aggregator.Api.Services
             _logger = logger;
         }
 
-        public async Task HandleAsync(MeasurementPair measurementPair)
+        public async Task HandleAsync(MeasurementPair<double, long> measurementPair)
         {
             // TODO: Implement some actual business logic
             if (IsValueToHigh())
             {
                 var alarmId = Guid.NewGuid().ToString("N");
-                _logger.LogInformation($"Alarm with ID: {alarmId} has been raised for sensor: " +
+                _logger.LogWarning($"Alarm with ID: {alarmId} has been raised for sensor: " +
                     $"'{measurementPair.SensorName}' which has value: '{measurementPair.Value}'.");
                 var integrationEvent = new RaisedAlarm(alarmId, measurementPair.SensorName);
                 await _messagePublisher.PublishAsync("alarms", integrationEvent);

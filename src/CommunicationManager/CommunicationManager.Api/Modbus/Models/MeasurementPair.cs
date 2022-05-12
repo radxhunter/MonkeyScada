@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace CommunicationManager.Api.Modbus.Models
 {
-    public sealed record MeasurementPair<T>(string SensorName, T Value, long Timestamp);
+    public sealed record MeasurementPair<TValue, TTime>(string SensorName, TValue Value, TTime Time);
 }

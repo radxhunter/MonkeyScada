@@ -6,16 +6,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aggregator.Api.Services
+namespace Aggregator.Api.Weather
 {
     internal sealed class WeatherStreamBackgroundService : BackgroundService
     {
         private readonly IStreamSubscriber _streamSubscriber;
+        private readonly IWeatherHandler _weatherHandler;
         private readonly ILogger<WeatherStreamBackgroundService> _logger;
 
-        public WeatherStreamBackgroundService(IStreamSubscriber streamSubscriber, ILogger<WeatherStreamBackgroundService> logger)
+        public WeatherStreamBackgroundService(IStreamSubscriber streamSubscriber,
+            IWeatherHandler weatherHandler,
+            ILogger<WeatherStreamBackgroundService> logger)
         {
             _streamSubscriber = streamSubscriber;
+            _weatherHandler = weatherHandler;
             _logger = logger;
         }
 
@@ -25,6 +29,7 @@ namespace Aggregator.Api.Services
             {
                 _logger.LogInformation($"{data.Location}: {data.Temperature} 'C, {data.Humidity} %," +
                     $"{data.Wind} km/h [{data.Condition}]");
+                _ = _weatherHandler.HandleAsync(data);
             });
         }
     }

@@ -4,11 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommunicationManager.Api.Modbus.Requests
+namespace CommunicationManager.Api.SerialComm.Requests
 {
-    // Marker
-    internal interface ISerialPortRequest
-    {
-
-    }
+    internal record StartSerial : ISerialPortRequest;
 }

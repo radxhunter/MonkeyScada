@@ -1,4 +1,4 @@
-﻿using CommunicationManager.Api.Modbus.Requests;
+﻿using CommunicationManager.Api.SerialComm.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;

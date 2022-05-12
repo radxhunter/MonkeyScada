@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace Aggregator.Api.Models
 {
-    internal sealed record MeasurementPair(string SensorName, double Value, long Timestamp);
+    internal sealed record MeasurementPair<TValue, TTime>(string SensorName, TValue Value, TTime Time);
 }

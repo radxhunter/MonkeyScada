@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aggregator.Api.Services
+namespace Aggregator.Api.Modbus
 {
     internal sealed class ModbusStreamBackgroundService : BackgroundService
     {
@@ -25,9 +25,9 @@ namespace Aggregator.Api.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await _subscriber.SubscribeAsync<MeasurementPair>("modbus", m =>
+            await _subscriber.SubscribeAsync<MeasurementPair<double, long>>("modbus", m =>
             {
-                _logger.LogInformation($"The '{m.SensorName}' has value: '{m.Value}', timestamp: '{m.Timestamp}'");
+                _logger.LogInformation($"The '{m.SensorName}' has value: '{m.Value}', time: '{m.Time}'");
                 _ = _modbusHandler.HandleAsync(m);
             });
         }

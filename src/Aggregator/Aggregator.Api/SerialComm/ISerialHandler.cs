@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aggregator.Api.Services
+namespace Aggregator.Api.SerialComm
 {
-    internal interface IModbusHandler
+    internal interface ISerialHandler
     {
-        Task HandleAsync(MeasurementPair measurementPair);
+        Task HandleAsync(MeasurementPair<string, DateTime> measurementPair);
     }
 }

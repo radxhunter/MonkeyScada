@@ -1,4 +1,6 @@
-using Aggregator.Api.Services;
+using Aggregator.Api.Modbus;
+using Aggregator.Api.SerialComm;
+using Aggregator.Api.Weather;
 using MonkeyScada.Shared.Messaging;
 using MonkeyScada.Shared.Redis;
 using MonkeyScada.Shared.Redis.Streaming;
@@ -13,6 +15,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddHostedService<ModbusStreamBackgroundService>()
+    .AddHostedService<SerialStreamBackgroundService>()
     .AddHostedService<WeatherStreamBackgroundService>()
     .AddSerialization()
     .AddStreaming()
@@ -20,6 +23,8 @@ builder.Services
     .AddRedisStreaming()
     .AddMessaging()
     .AddSingleton<IModbusHandler, ModbusHandler>()
+    .AddSingleton<ISerialHandler, SerialHandler>()
+    .AddSingleton<IWeatherHandler, WeatherHandler>()
     ;
 
 var app = builder.Build();

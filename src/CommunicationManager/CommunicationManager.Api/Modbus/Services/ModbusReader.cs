@@ -16,7 +16,7 @@ namespace CommunicationManager.Api.Modbus.Services
         private bool _isRunning;
         private Dictionary<string,short?> _modbusRegisters = new();
 
-        public event EventHandler<MeasurementPair<double>>? MeasurementUpdated;
+        public event EventHandler<MeasurementPair<double, long>>? MeasurementUpdated;
 
         public ModbusReader(ILogger<ModbusReader> logger)
         {
@@ -29,7 +29,7 @@ namespace CommunicationManager.Api.Modbus.Services
 
         public IEnumerable<string> GetSensorNames() => _modbusRegisters.Keys;
 
-        public async IAsyncEnumerable<MeasurementPair<double>> StartAsync(CancellationToken cancellationToken)
+        public async IAsyncEnumerable<MeasurementPair<double, long>> StartAsync(CancellationToken cancellationToken)
         {
             _isRunning = true;
             while (_isRunning)
@@ -52,7 +52,7 @@ namespace CommunicationManager.Api.Modbus.Services
 
                 for (int i = 0; i < _modbusRegisters.Count; i++)
                 {
-                    var measurement = new MeasurementPair<double>(_modbusRegisters.Keys.ElementAt(i), modbusData[i], timestamp);
+                    var measurement = new MeasurementPair<double, long>(_modbusRegisters.Keys.ElementAt(i), modbusData[i], timestamp);
                     MeasurementUpdated?.Invoke(this, measurement);
                     yield return measurement;
                 }

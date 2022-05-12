@@ -7,13 +7,11 @@ using CommunicationManager.Api.Modbus.Services;
 using CommunicationManager.Api.Modbus.Requests;
 using CommunicationManager.Api.SerialComm.Services;
 using MediatR;
+using CommunicationManager.Api.SerialComm.Requests;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

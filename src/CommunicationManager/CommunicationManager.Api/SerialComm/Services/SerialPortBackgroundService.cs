@@ -1,4 +1,4 @@
-﻿using CommunicationManager.Api.Modbus.Requests;
+﻿using CommunicationManager.Api.SerialComm.Requests;
 using MonkeyScada.Shared.Streaming;
 using System;
 using System.Collections.Generic;
@@ -13,16 +13,19 @@ namespace CommunicationManager.Api.SerialComm.Services
         private readonly ILogger<SerialPortBackgroundService> _logger;
         private readonly ISerialPortCommunicator _serialPortCommunicator;
         private readonly SerialPortRequestChannel _requestChannel;
+        private readonly IStreamPublisher _streamPublisher;
         private int _runningStatus;
 
         public SerialPortBackgroundService(
             ISerialPortCommunicator serialPortCommunicator,
             SerialPortRequestChannel requestChannel,
+            IStreamPublisher streamPublisher,
             ILogger<SerialPortBackgroundService> logger)
         {
             _logger = logger;
             _serialPortCommunicator = serialPortCommunicator;
             _requestChannel = requestChannel;
+            _streamPublisher = streamPublisher;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -59,11 +62,9 @@ namespace CommunicationManager.Api.SerialComm.Services
                 return;
             }
 
-            await foreach (var m in _serialPortCommunicator.StartAsync(cancellationToken))
+            await foreach (var measurementPair in _serialPortCommunicator.StartAsync(cancellationToken))
             {
-                //_logger.LogInformation($"{m.SensorName}: {m.Value}, timestamp: {m.Timestamp}.");
-                //_logger.LogInformation("Publishing the measurement pair...");
-                //await _streamPublisher.PublishAsync("modbus", measurementPair);
+                await _streamPublisher.PublishAsync("serial", measurementPair);
             }
         }
 
