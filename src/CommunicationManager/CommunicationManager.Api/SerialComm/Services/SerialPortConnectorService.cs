@@ -43,23 +43,7 @@ namespace CommunicationManager.Api.SerialComm.Services
             using var serialPort = new SerialPortStream(_portName, _baudRate);
             while (_isRunning)
             {
-                try
-                {
-                    if (!serialPort.IsOpen)
-                    {
-                        serialPort.Open();
-                    }
-                    string serialData = serialPort.ReadLine();
-                    long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-                    _logger.LogInformation("Data Received:------->" + serialData + ", time:" + timestamp.ToString());
-
-                    measurements.Enqueue(new MeasurementPair<string>(_portName, serialData, timestamp));
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError("An error occured: " + ex.Message, ex);
-                    throw;
-                }
+                await ReadSerial(serialPort, cancellationToken);
 
                 foreach (var measurement in measurements)
                 {
@@ -74,6 +58,28 @@ namespace CommunicationManager.Api.SerialComm.Services
         public Task StopAsync(CancellationToken cancellationToken)
         {
             _isRunning = false;
+            return Task.CompletedTask;
+        }
+
+        private Task ReadSerial(SerialPortStream serialPort, CancellationToken cancellationToken)
+        {
+            try
+            {
+                if (!serialPort.IsOpen)
+                {
+                    serialPort.Open();
+                }
+                string serialData = serialPort.ReadLine();
+                long timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                _logger.LogInformation("Data Received:------->" + serialData + ", time:" + timestamp.ToString());
+
+                measurements.Enqueue(new MeasurementPair<string>(_portName, serialData, timestamp));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occured: " + ex.Message, ex);
+                throw;
+            }
             return Task.CompletedTask;
         }
     }
