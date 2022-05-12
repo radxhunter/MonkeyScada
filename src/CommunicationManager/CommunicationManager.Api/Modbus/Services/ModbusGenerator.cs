@@ -25,12 +25,12 @@ namespace CommunicationManager.Api.Modbus.Services
             _logger = logger;
         }
 
-        public event EventHandler<MeasurementPair>? MeasurementUpdated;
+        public event EventHandler<MeasurementPair<double>>? MeasurementUpdated;
 
         public IEnumerable<string> GetSensorNames() => _measurementPairs.Keys;
 
 
-        public async IAsyncEnumerable<MeasurementPair> StartAsync(CancellationToken cancellationToken)
+        public async IAsyncEnumerable<MeasurementPair<double>> StartAsync(CancellationToken cancellationToken)
         {
             _isRunning = true;
             while (_isRunning)
@@ -48,7 +48,7 @@ namespace CommunicationManager.Api.Modbus.Services
 
                     var timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                     _logger.LogInformation($"Updated modbus for: {room}, {temperature:F} -> {newMeasurement:F} [{tick:F}]");
-                    var measurementPair = new MeasurementPair(room, newMeasurement, timestamp);
+                    var measurementPair = new MeasurementPair<double>(room, newMeasurement, timestamp);
                     MeasurementUpdated?.Invoke(this, measurementPair);
                     yield return measurementPair;
                     await Task.Delay(TimeSpan.FromSeconds(1));

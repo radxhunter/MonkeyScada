@@ -7,7 +7,7 @@ namespace CommunicationManager.Api.Modbus.Services
 {
     internal sealed class ModbusGrpcService : ModbusFeed.ModbusFeedBase
     {
-        private readonly BlockingCollection<MeasurementPair> _measurementPairs = new();
+        private readonly BlockingCollection<MeasurementPair<double>> _measurementPairs = new();
         private readonly IModbusCommunicator _modbusCommunicator;
 
         public ModbusGrpcService(IModbusCommunicator modbusCommunicator)
@@ -46,7 +46,7 @@ namespace CommunicationManager.Api.Modbus.Services
 
             _modbusCommunicator.MeasurementUpdated -= OnModbusUpdated;
 
-            void OnModbusUpdated(object? sender, MeasurementPair measurementPair)
+            void OnModbusUpdated(object? sender, MeasurementPair<double> measurementPair)
                 => _measurementPairs.TryAdd(measurementPair);
         }
     }

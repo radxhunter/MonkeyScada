@@ -16,8 +16,11 @@ namespace CommunicationManager.Api.Modbus.Services
         private readonly IStreamPublisher _streamPublisher;
         private readonly ILogger<ModbusBackgroundService> _logger;
 
-        public ModbusBackgroundService(IModbusCommunicator modbusCommunicator, ModbusRequestChannel channel,
-            IStreamPublisher streamPublisher, ILogger<ModbusBackgroundService> logger)
+        public ModbusBackgroundService(
+            IModbusCommunicator modbusCommunicator, 
+            ModbusRequestChannel channel,
+            IStreamPublisher streamPublisher,
+            ILogger<ModbusBackgroundService> logger)
         {
             _modbusCommunicator = modbusCommunicator;
             _requestChannel = channel;

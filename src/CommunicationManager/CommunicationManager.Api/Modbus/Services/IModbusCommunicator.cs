@@ -5,8 +5,8 @@ namespace CommunicationManager.Api.Modbus.Services
     internal interface IModbusCommunicator
     {
         IEnumerable<string> GetSensorNames();
-        IAsyncEnumerable<MeasurementPair> StartAsync(CancellationToken cancellationToken);
+        IAsyncEnumerable<MeasurementPair<double>> StartAsync(CancellationToken cancellationToken);
         Task StopAsync(CancellationToken cancellationToken);
-        event EventHandler<MeasurementPair>? MeasurementUpdated;
+        event EventHandler<MeasurementPair<double>>? MeasurementUpdated;
     }
 }

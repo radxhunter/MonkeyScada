@@ -1,4 +1,4 @@
-﻿using CommunicationManager.Api.SerialPortConnector.Services;
+﻿using CommunicationManager.Api.SerialComm.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CommunicationManager.Api.Controllers
@@ -9,21 +9,23 @@ namespace CommunicationManager.Api.Controllers
     {
         private readonly ILogger<SerialDeviceController> _logger;
         private readonly ISerialPortConnectorService _connector;
+        private readonly ISerialPortCommunicator _communicator;
 
         public SerialDeviceController(
             ILogger<SerialDeviceController> logger,
-            ISerialPortConnectorService connector)
+            ISerialPortConnectorService connector,
+            ISerialPortCommunicator communicator)
         {
             _logger = logger;
             _connector = connector;
+            _communicator = communicator;
         }
 
         // GET: api/<SerialDeviceController>
         [HttpGet]
-        public IActionResult Get()
+        public IEnumerable<string> Get()
         {
-            _connector.Read();
-            return Ok();
+            return new List<string>() { "value1", "value2" };
         }
 
         // GET api/<SerialDeviceController>/5

@@ -1,8 +1,7 @@
-﻿namespace CommunicationManager.Api.SerialPortConnector.Services
+﻿namespace CommunicationManager.Api.SerialComm.Services
 {
     public interface ISerialPortConnectorService
     {
         void Send(string command);
-        void Read();
     }
 }

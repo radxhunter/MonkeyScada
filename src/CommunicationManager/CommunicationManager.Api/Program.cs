@@ -5,7 +5,8 @@ using MonkeyScada.Shared.Streaming;
 using MonkeyScada.Shared.Redis.Streaming;
 using CommunicationManager.Api.Modbus.Services;
 using CommunicationManager.Api.Modbus.Requests;
-using CommunicationManager.Api.SerialPortConnector.Services;
+using CommunicationManager.Api.SerialComm.Services;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,14 +21,18 @@ builder.Services.AddSingleton<IMeasurementService, MeasurementService>();
 builder.Services.AddSingleton<IDeviceEnrollmentService, DeviceEnrollmentService>();
 
 builder.Services
+    .AddMediatR(typeof(Program))
     .AddStreaming()
     .AddSerialization()
     .AddRedis(builder.Configuration)
     .AddRedisStreaming()
     .AddSingleton<ModbusRequestChannel>()
+    .AddSingleton<SerialPortRequestChannel>()
     .AddSingleton<IModbusCommunicator, ModbusReader>()
+    .AddScoped<ISerialPortCommunicator, SerialPortConnectorService>()
     .AddScoped<ISerialPortConnectorService, SerialPortConnectorService>()
     .AddHostedService<ModbusBackgroundService>()
+    .AddHostedService<SerialPortBackgroundService>()
     .AddGrpc();
 
 var app = builder.Build();
@@ -44,6 +49,18 @@ app.MapPost("/modbus/start", async (ModbusRequestChannel channel) =>
 app.MapPost("/modbus/stop", async (ModbusRequestChannel channel) =>
 {
     await channel.Requests.Writer.WriteAsync(new StopModbus());
+    return Results.Ok();
+});
+
+app.MapPost("/serial/start", async (SerialPortRequestChannel channel) =>
+{
+    await channel.Requests.Writer.WriteAsync(new StartSerial());
+    return Results.Ok();
+});
+
+app.MapPost("/serial/stop", async (SerialPortRequestChannel channel) =>
+{
+    await channel.Requests.Writer.WriteAsync(new StopSerial());
     return Results.Ok();
 });
 
