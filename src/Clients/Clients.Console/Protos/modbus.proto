@@ -1,0 +1,27 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Clients.Console";
+
+package modbus.protos;
+
+service ModbusFeed {
+	rpc GetSensorNames(GetSensorNamesRequest) returns (GetSensorNamesResponse);
+	rpc SubscribeModbus(ModbusRequest) returns (stream ModbusResponse);
+}
+
+message GetSensorNamesRequest {
+}
+
+message GetSensorNamesResponse {
+  repeated string sensorNames = 1;
+}
+
+message ModbusRequest {
+	string sensorName = 1;
+}
+
+message ModbusResponse {
+	string sensorName = 1;
+	int32 value = 2;
+	int64 timestamp = 3;
+}

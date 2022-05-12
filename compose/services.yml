@@ -43,8 +43,19 @@ services:
       - 5030:80
     networks:
       - scada
+
+  weather:
+    build:
+      context: ../
+      dockerfile: src/Weather/Dockerfile
+    container_name: scada-weather
+    restart: unless-stopped
+    ports:
+      - 5040:80
+    networks:
+      - scada
  
 networks:
   scada:
     name: scada
-    #external: true
+    external: true

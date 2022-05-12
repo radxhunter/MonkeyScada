@@ -26,3 +26,10 @@
       - run
     cwd: src/CommunicationManager/CommunicationManager.Api
     max_restarts: 3
+
+  - name: monkey-scada-weather
+    script: dotnet
+    args:
+      - run
+    cwd: src/Weather/Weather.Api
+    max_restarts: 3
