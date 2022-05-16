@@ -6,20 +6,6 @@
     cwd: src/Gateway/Gateway.Api
     max_restarts: 3
 
-  - name: monkey-scada-device-enrollment
-    script: dotnet
-    args:
-      - run
-    cwd: src/DeviceEnrollment/DeviceEnrollment.Api
-    max_restarts: 3
-
-  - name: monkey-scada-data-visualization
-    script: dotnet
-    args:
-      - run
-    cwd: src/DataVisualization/DataVisualization.Api
-    max_restarts: 3
-
   - name: monkey-scada-communication-manager
     script: dotnet
     args:

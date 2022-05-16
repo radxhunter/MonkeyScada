@@ -8,22 +8,6 @@ services:
     - name: ASPNETCORE_ENVIRONMENT
       value: development
       
-- name: monkey-scada-device-enrollment
-  project: src/DeviceEnrollment/DeviceEnrollment.Api/DeviceEnrollment.Api.csproj
-  bindings:
-  - port: 5010
-  env:
-    - name: ASPNETCORE_ENVIRONMENT
-      value: development
-
-- name: monkey-scada-data-visualization
-  project: src/DataVisualization/DataVisualization.Api/DataVisualization.Api.csproj
-  bindings:
-  - port: 5020
-  env:
-    - name: ASPNETCORE_ENVIRONMENT
-      value: development
-    
 - name: monkey-scada-communication-manager
   project: src/CommunicationManager/CommunicationManager.Api/CommunicationManager.Api.csproj
   bindings:
