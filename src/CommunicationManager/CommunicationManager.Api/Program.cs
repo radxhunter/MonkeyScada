@@ -1,4 +1,3 @@
-using CommunicationManager.Api.Services;
 using MonkeyScada.Shared.Redis;
 using MonkeyScada.Shared.Serialization;
 using MonkeyScada.Shared.Streaming;
@@ -14,9 +13,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddSingleton<IMeasurementService, MeasurementService>();
-builder.Services.AddSingleton<IDeviceEnrollmentService, DeviceEnrollmentService>();
 
 builder.Services
     .AddMediatR(typeof(Program))

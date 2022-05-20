@@ -7,7 +7,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 builder.Services
     .AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("yarp"));
@@ -17,12 +16,8 @@ var app = builder.Build();
 app.MapGet("/", () => "MonkeyScada Gateway");
 app.MapReverseProxy();
 
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
     app.UseSwagger();
     app.UseSwaggerUI();
-//}
 
 
 app.UseHttpsRedirection();
