@@ -11,13 +11,13 @@ namespace CommunicationManager.Api.SerialComm.Services
     internal class SerialPortBackgroundService : BackgroundService
     {
         private readonly ILogger<SerialPortBackgroundService> _logger;
-        private readonly ISerialPortCommunicator _serialPortCommunicator;
+        private readonly ISerialPortReceiver _serialPortCommunicator;
         private readonly SerialPortRequestChannel _requestChannel;
         private readonly IStreamPublisher _streamPublisher;
         private int _runningStatus;
 
         public SerialPortBackgroundService(
-            ISerialPortCommunicator serialPortCommunicator,
+            ISerialPortReceiver serialPortCommunicator,
             SerialPortRequestChannel requestChannel,
             IStreamPublisher streamPublisher,
             ILogger<SerialPortBackgroundService> logger)

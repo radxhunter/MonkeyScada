@@ -8,17 +8,14 @@ namespace CommunicationManager.Api.Controllers
     public class SerialDeviceController : ControllerBase
     {
         private readonly ILogger<SerialDeviceController> _logger;
-        private readonly ISerialPortConnectorService _connector;
-        private readonly ISerialPortCommunicator _communicator;
+        private readonly ISerialPortSender _connector;
 
         public SerialDeviceController(
             ILogger<SerialDeviceController> logger,
-            ISerialPortConnectorService connector,
-            ISerialPortCommunicator communicator)
+            ISerialPortSender connector)
         {
             _logger = logger;
             _connector = connector;
-            _communicator = communicator;
         }
 
         // GET: api/<SerialDeviceController>
