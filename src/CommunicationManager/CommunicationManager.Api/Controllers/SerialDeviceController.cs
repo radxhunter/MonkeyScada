@@ -18,20 +18,6 @@ namespace CommunicationManager.Api.Controllers
             _connector = connector;
         }
 
-        // GET: api/<SerialDeviceController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new List<string>() { "value1", "value2" };
-        }
-
-        // GET api/<SerialDeviceController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         [HttpPost]
         public IActionResult Send([FromBody] string command, string roomNumber)
         {
@@ -45,18 +31,6 @@ namespace CommunicationManager.Api.Controllers
                 _logger.LogError(ex.Message);
                 return BadRequest("failed");
             }
-        }
-
-        // PUT api/<SerialDeviceController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<SerialDeviceController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
