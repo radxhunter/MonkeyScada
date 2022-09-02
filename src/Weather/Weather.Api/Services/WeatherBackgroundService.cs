@@ -25,7 +25,7 @@ namespace Weather.Api.Services
         {
             using var scope = _serviceProvider.CreateScope();
             var weatherFeed = scope.ServiceProvider.GetRequiredService<IWeatherFeed>();
-            await foreach (var weather in weatherFeed.SubscribeAsync("Rybnik", stoppingToken))
+            await foreach (var weather in weatherFeed.SubscribeAsync("Chorzów", stoppingToken))
             {
                 _logger.LogInformation($"{weather.Location}: {weather.Temperature} C, {weather.Humidity} %," +
                                        $"{weather.Wind} km/h [{weather.Condition}]");
