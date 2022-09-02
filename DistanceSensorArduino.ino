@@ -3,9 +3,9 @@
  
 void setup() {
   Serial.begin (9600);
-  pinMode(trigPin, OUTPUT); //Pin, do którego podłączymy trig jako wyjście
-  pinMode(echoPin, INPUT); //a echo, jako wejście
-  pinMode(2, OUTPUT); //Wyjście dla buzzera
+  pinMode(trigPin, OUTPUT); //distance sensor - output
+  pinMode(echoPin, INPUT); //distance sensor - input
+  pinMode(2, OUTPUT); //out for buzzer
 }
  
 void loop() {  
@@ -15,14 +15,12 @@ void loop() {
   Serial.print("\n");
   delay(400);
   
-  zakres(10, 25, currentLength); //Włącz alarm, jeśli w odległości od 10 do 25 cm od czujnika jest przeszkoda  
+  range(15, 40, currentLength); //turn alarm when an object is in length from 15 to 40 centimeters
   delay(500);
 } 
 
-
- 
 int getDistance() {
-  long czas, dystans;
+  long timeElapsed, distance;
  
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
@@ -30,17 +28,17 @@ int getDistance() {
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
  
-  czas = pulseIn(echoPin, HIGH);
-  dystans = czas / 58;
+  timeElapsed = pulseIn(echoPin, HIGH);
+  distance = timeElapsed / 58;
  
-  return dystans;
+  return distance;
 }
  
-void zakres(int a, int b, int currentLength) {
-  int jakDaleko = currentLength;
-  if ((jakDaleko > a) && (jakDaleko < b)) {
-      digitalWrite(8, HIGH); //Włączamy diodę
+void range(int a, int b, int currentLength) {
+  int calculatedDistance = currentLength;
+    if ((calculatedDistance > a) && (calculatedDistance < b)) {
+      digitalWrite(8, HIGH); // Turn on the diod
   } else {
-      digitalWrite(8, LOW); //Wyłączamy diodę, gdy obiekt poza zakresem
+      digitalWrite(8, LOW); //Turn off the diod, when object is out of range 
   }
 }
