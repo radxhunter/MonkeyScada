@@ -23,8 +23,8 @@ builder.Services
     .AddSingleton<ModbusRequestChannel>()
     .AddSingleton<SerialPortRequestChannel>()
     .AddSingleton<IModbusCommunicator, ModbusReader>()
-    .AddScoped<ISerialPortCommunicator, SerialPortConnectorService>()
-    .AddScoped<ISerialPortConnectorService, SerialPortConnectorService>()
+    .AddScoped<ISerialPortReceiver, SerialPortConnectorService>()
+    .AddScoped<ISerialPortSender, SerialPortConnectorService>()
     .AddHostedService<ModbusBackgroundService>()
     .AddHostedService<SerialPortBackgroundService>()
     .AddGrpc();

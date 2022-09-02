@@ -30,7 +30,6 @@ namespace Weather.Api.Services
                 _logger.LogInformation($"{weather.Location}: {weather.Temperature} C, {weather.Humidity} %," +
                                        $"{weather.Wind} km/h [{weather.Condition}]");
                 await _streamPublisher.PublishAsync("weather", weather);
-
             }
         }
     }

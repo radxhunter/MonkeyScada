@@ -7,8 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddSerialization()
     .AddMessaging()
-    .AddHostedService<NotifierMessagingBackgroundService>()
-    ;
+    .AddHostedService<NotifierMessagingBackgroundService>();
 
 var app = builder.Build();
 

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CommunicationManager.Api.SerialComm.Services
 {
-    public class SerialPortConnectorService : ISerialPortConnectorService, ISerialPortCommunicator
+    public class SerialPortConnectorService : ISerialPortSender, ISerialPortReceiver
     {
         private readonly string _portName;
         private readonly int _baudRate;

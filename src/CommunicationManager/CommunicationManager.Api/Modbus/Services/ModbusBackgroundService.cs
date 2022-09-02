@@ -46,38 +46,38 @@ namespace CommunicationManager.Api.Modbus.Services
                 _logger.LogInformation($"Modbus background service has received the request: '{ request.GetType().Name}'");
                 var _ = request switch
                 {
-                    StartModbus => StartGeneratorAsync(stoppingToken),
-                    StopModbus => StopGeneratorAsync(stoppingToken),
+                    StartModbus => StartModbusAsync(stoppingToken),
+                    StopModbus => StopModbusAsync(stoppingToken),
                     _ => Task.CompletedTask
                 };
             }
             _logger.LogInformation("Modbus background service has stopped");
         }
 
-        private async Task StartGeneratorAsync(CancellationToken cancellationToken)
-        {
-            if (Interlocked.Exchange(ref _runningStatus, 1) == 1)
-            {
-                _logger.LogInformation("Modbus generator is already running");
-                return;
-            }
+private async Task StartModbusAsync(CancellationToken cancellationToken)
+{
+    if (Interlocked.Exchange(ref _runningStatus, 1) == 1)
+    {
+        _logger.LogInformation("Modbus is already running");
+        return;
+    }
 
-            await foreach (var measurementPair in _modbusCommunicator.StartAsync(cancellationToken))
-            {
-                _logger.LogInformation("Publishing the measurement pair...");
-                await _streamPublisher.PublishAsync("modbus", measurementPair);
-            }
-        }
+    await foreach (var measurementPair in _modbusCommunicator.StartAsync(cancellationToken))
+    {
+        _logger.LogInformation("Publishing the measurement pair...");
+        await _streamPublisher.PublishAsync("modbus", measurementPair);
+    }
+}
 
-        private async Task StopGeneratorAsync(CancellationToken cancellationToken)
-        {
-            if (Interlocked.Exchange(ref _runningStatus, 0) == 0)
-            {
-                _logger.LogInformation("Modbus generator is not running");
-                return;
-            }
+private async Task StopModbusAsync(CancellationToken cancellationToken)
+{
+    if (Interlocked.Exchange(ref _runningStatus, 0) == 0)
+    {
+        _logger.LogInformation("Modbus is not running");
+        return;
+    }
 
-            await _modbusCommunicator.StopAsync(cancellationToken);
-        }
+    await _modbusCommunicator.StopAsync(cancellationToken);
+}
     }
 }
